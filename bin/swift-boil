@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require "swift/boiler"
+
+Swift::Boiler.boil(ARGV)

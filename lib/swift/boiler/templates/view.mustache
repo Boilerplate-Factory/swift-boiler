@@ -1,0 +1,134 @@
+//
+//  {{class_name}}.swift
+//
+//  Created by {{dev_name}} on {{date}}.
+//
+//
+
+import UIKit
+{{#options.delegate}}
+
+protocol {{class_name}}Delegate: class {
+    
+}
+{{/options.delegate}}
+
+class {{class_name}}: UIView {
+    {{#options.delegate}}
+    weak fileprivate var delegate: {{class_name}}Delegate?
+    {{/options.delegate}}
+    {{#properties.ui_label}}
+    fileprivate let {{property_name}} = UILabel() 
+    {{/properties.ui_label}}
+    {{#properties.ui_view}}
+    fileprivate let {{property_name}} = UIView() 
+    {{/properties.ui_view}}
+    {{#properties.unknow_type}}
+    fileprivate let {{property_name}}: {{property_type}} = {{property_type}}() 
+    {{/properties.unknow_type}}
+
+    {{#options.delegate}}
+    init(frame: CGRect, delegate: {{class_name}}Delegate) {
+        self.delegate = delegate
+        super.init(frame: frame)
+        self.setupView()
+    }
+    {{/options.delegate}}
+    {{^options.delegate}}
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setupView()
+    }
+    {{/options.delegate}}
+
+    convenience init({{#options.delegate}}delegate: {{class_name}}Delegate{{/options.delegate}}) {
+        self.init(frame: CGRect.zero{{#options.delegate}}, delegate: delegate{{/options.delegate}})
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented for {{class_name}}.swift")
+    }
+    
+//------------------------------------------------------------------------------------------------------------------
+    // MARK: - Setup
+//------------------------------------------------------------------------------------------------------------------
+    
+    fileprivate func setupView() {
+    {{#properties}}
+    {{#ui_label}}
+        self.setup{{cap_property_name}}()
+    {{/ui_label}}
+    {{/properties}}
+    }
+
+    {{#properties}}
+    {{#ui_label}}
+    fileprivate func setup{{cap_property_name}}() {
+        self.addSubview(self.{{property_name}})
+        self.addConstraintsTo{{cap_property_name}}(self.{{property_name}})
+    }
+
+    {{/ui_label}}
+    {{#ui_view}}
+    fileprivate func setup{{cap_property_name}}() {
+        self.addSubview(self.{{property_name}})
+        self.addConstraintsTo{{cap_property_name}}(self.{{property_name}})
+    }
+
+    {{/ui_view}}
+    {{/properties}}
+//------------------------------------------------------------------------------------------------------------------
+    // MARK: - Actions
+//------------------------------------------------------------------------------------------------------------------    
+    
+    {{#properties.ui_label.length}}
+    public func updateLabels({{#properties}}{{#ui_label}}{{^first}}, {{/first}}{{property_name}}: String{{/ui_label}}{{/properties}}) {
+    {{#properties}}
+    {{#ui_label}}
+        self.{{property_name}}.text = {{property_name}}
+    {{/ui_label}}
+    {{/properties}}
+    }
+
+    {{/properties.ui_label.length}}   
+//------------------------------------------------------------------------------------------------------------------
+    // MARK: - Constraints
+//------------------------------------------------------------------------------------------------------------------
+    
+    {{#properties}}
+    {{#ui_label}}
+    fileprivate func addConstraintsTo{{cap_property_name}}(_ label: UILabel) {
+        label.translatesAutoresizingMaskIntoConstraints = false
+        var constraints = [NSLayoutConstraint]()
+
+//        constraints.append(NSLayoutConstraint(item: label,
+//            attribute: .bottom,
+//            relatedBy: .equal,
+//            toItem: view.superview,
+//            attribute: .bottom,
+//            multiplier: 1,
+//            constant: 0))
+
+        NSLayoutConstraint.activate(constraints)
+    }
+
+    {{/ui_label}}
+    {{#ui_view}}
+    fileprivate func addConstraintsTo{{cap_property_name}}(_ view: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        var constraints = [NSLayoutConstraint]()
+
+//        constraints.append(NSLayoutConstraint(item: view,
+//            attribute: .bottom,
+//            relatedBy: .equal,
+//            toItem: view.superview,
+//            attribute: .bottom,
+//            multiplier: 1,
+//            constant: 0))
+
+        NSLayoutConstraint.activate(constraints)
+    }
+
+    {{/ui_view}}
+    {{/properties}}
+}
