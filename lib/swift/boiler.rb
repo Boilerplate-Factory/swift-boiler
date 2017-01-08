@@ -21,7 +21,7 @@ module Swift
   				  builder.boil_template("table_view_cell.mustache", arguments)
   				
   				else
-  				  puts "TODO: print out helper message!"
+  				  puts "Could not find template: " + action.downcase
 
   				end
   			end
