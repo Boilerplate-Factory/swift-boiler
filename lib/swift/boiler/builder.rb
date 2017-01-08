@@ -23,6 +23,11 @@ module Swift
 			out_file.puts(text)
 			out_file.close
     	end
-    end
+
+			def template_exists(template_name)
+				path = File.dirname(__FILE__) + '/templates/' + template_name
+				File.exist?(path)
+			end
+		end
   end
 end

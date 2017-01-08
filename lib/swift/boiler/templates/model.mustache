@@ -1,0 +1,19 @@
+//
+//  {{class_name}}.swift
+//
+//  Created by {{dev_name}} on {{date}}.
+//
+//
+
+struct {{class_name}} {
+
+{{#properties.unknow_type}}
+    var {{property_name}}: {{property_type}} = {{property_type}}()
+{{/properties.unknow_type}}
+
+    public init({{#properties.unknow_type}}let {{property_name}}:{{property_type}}, {{/properties.unknow_type}}) {
+{{#properties.unknow_type}}
+         self.{{property_name}} = {{property_name}}
+{{/properties.unknow_type}}
+    }
+}
