@@ -1,8 +1,15 @@
 require 'mustache'
 
+require 'swift/boiler/template'
+require 'swift/boiler/token'
+
 module Swift
   module Boiler
     class Parser
+
+      def parse_tokens(tokens)
+        
+      end
 
     	def parse_properties(arguments)
         possible_properties = arguments.select { |item| item.include?(":") }

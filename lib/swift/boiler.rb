@@ -1,14 +1,21 @@
 require 'swift/boiler/builder'
+require 'swift/boiler/scanner'
+require 'swift/boiler/parser'
+require 'swift/boiler/template'
+require 'swift/boiler/token'
 
 module Swift
   module Boiler
-    AVAILABLE_ACTIONS = ['view']
-
       class << self
 
       def boil(arguments)
-        action = arguments.shift
-        parse_action(action, arguments)
+        scanner = Swift::Boiler::Scanner.new
+        parser = Swift::Boiler::Builder.new
+        builder = Swift::Boiler::Builder.new
+        token_list = scanner.scan(arguments)
+
+        # action = arguments.shift
+        # parse_action(action, arguments)
       end
 
       def parse_action(action, arguments)

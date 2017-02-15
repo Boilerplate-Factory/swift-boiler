@@ -4,6 +4,15 @@ module Swift
   module Boiler
     class Builder
 
+        shortcut_map = {
+            tableviewcell: 'table_view_cell',
+            m: 'model',
+            v: 'view',
+            c: 'controller',
+            s: 'singleton',
+            tvc: 'table_view_cell'
+        }
+
     	def boil_template(template_name, arguments) 
     		Mustache.template_file = File.dirname(__FILE__) + '/templates/' + template_name
     		parser = Parser.new
