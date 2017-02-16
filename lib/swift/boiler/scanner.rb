@@ -8,9 +8,9 @@ ClassName, TemplateName, TemplatePath, Option, Property
 Rules:
 -> Option                                                        => swift-boil --help
 -> Option -> TemplatePath -> ClassName -> [Property]             => swift-boil -t /Desktop/mytemplate.mustache MyView label:UILabel 
--> Option -> TemplatePath -> ClassName -> Option -> [Property]   => swift-boil -t /Desktop/mytemplate.mustache MyView -d label:UILabel 
+-> Option -> TemplatePath -> ClassName -> [Option] -> [Property]   => swift-boil -t /Desktop/mytemplate.mustache MyView -d label:UILabel 
 -> TemplateName -> ClassName -> [Property]                       => swift-boil view MyView label:UILabel 
--> TemplateName -> ClassName -> Option -> [Property]             => swift-boil view MyView -d label:UILabel
+-> TemplateName -> ClassName -> [Option] -> [Property]             => swift-boil view MyView -d label:UILabel
 =end
 
 module Swift
@@ -25,7 +25,7 @@ module Swift
           token_list << Token.new(Token::OPTION, first_argument)
           
           if !arguments.empty?
-            token_list << scan_tempalte_path(arguments)
+             scan_tempalte_path(arguments).each { |element| token_list << element }
           end
 
         elsif is_valid_template_name(first_argument)
@@ -33,12 +33,14 @@ module Swift
 
            if arguments.empty?
             puts "Error: arguments are missing a class name"
+            exit(0)
           else
-            token_list << scan_class_name(arguments)
+            scan_class_name(arguments).each { |element| token_list << element }
           end
 
         else
           puts "Error: Swift-boiler does not recognize argument " + first_argument
+          exit(0)
         end 
 
         token_list
@@ -49,10 +51,12 @@ module Swift
         tempalte_path = arguments.shift
 
         if is_valid_template_path(tempalte_path) 
-          token_list << Token.new(Token::TEMPLATE_PATH, tempalte_path) << scan_class_name(arguments)
+          token_list << Token.new(Token::TEMPLATE_PATH, tempalte_path) 
+          scan_class_name(arguments).each { |element| token_list << element }
 
         else
           puts "Error: Swift-boiler expected a template path, but found " + tempalte_path + " instead"
+          exit(0)
         end
 
         token_list
@@ -70,11 +74,12 @@ module Swift
           end
 
           if !arguments.empty? 
-            token_list << scan_properties(arguments)
+            scan_properties(arguments).each { |element| token_list << element }
           end 
 
         else
           puts "Error: Swift-boiler expected a class name, but found " + class_name + " instead"
+          exit(0)
         end
 
         token_list
@@ -88,6 +93,7 @@ module Swift
             token_list << Token.new(Token::PROPERTY, argument)
           else
             puts "Error: Swift-boiler expected a property, but found " + argument + " instead"
+            exit(0)
           end
         }
 
@@ -103,7 +109,7 @@ module Swift
       end
 
       def is_valid_template_name(argument)
-        ["controller", "model", "singleton", "table_view_cell", "view", "viewmodel"].include?(argument)
+        ["controller", "c", "model", "m" "singleton", "s", "table_view_cell", "tableviewcell", "tvc", "view", "v", "viewmodel"].include?(argument)
       end
 
       def is_valid_class_name(argument)
