@@ -4,8 +4,6 @@ Swift-Boiler is a tool developed for iOS developers to speed up the process of i
 
 ## Installation
 
-Via Homebrew:
-
 ### Install Swift-Boiler via [Homebrew](http://brew.sh):
 
 ```sh
