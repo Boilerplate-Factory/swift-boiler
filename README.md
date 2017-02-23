@@ -6,20 +6,20 @@ Swift-Boiler is a tool developed for iOS developers to speed up the process of i
 
 Via Homebrew:
 
-# Install Swift-Boiler via [Homebrew](http://brew.sh):
+### Install Swift-Boiler via [Homebrew](http://brew.sh):
 
 ```sh
 $ brew update
 $ brew install swift-boiler
 ```
 
-# Install it with gem:
+### Install it with gem:
 
 ```sh
 $ gem install swift-boiler
 ```
 
-# Compile from source:
+### Compile from source:
 
 ```sh
 $ git clone git@github.com:Boilerplate-Factory/swift-boiler.git
@@ -33,9 +33,10 @@ Swift-Boiler has only one swift-boil binary, and the command follow this specifi
 <details>
 <summary>swift-boil OPTION</summary>
 ```sh
-eg. swift-boil --help
+$ swift-boil --help
 ```
 </details>
+
 <details>
 <summary>swift-boil OPTION TEMPLATE_PATH CLASS_NAME [OPTIONS] [PROPERTIES]</summary>
 ```sh
@@ -43,6 +44,7 @@ $ swift-boil -t /Desktop/mytemplate.mustache MyView label:UILabel
 $ swift-boil -t /Desktop/mytemplate.mustache MyView -d label:UILabel
 ```
 </details>
+
 <details>
 <summary>swift-boil COMMAND CLASS_NAME [OPTIONS] [PROPERTIES]</summary>
 ```sh
