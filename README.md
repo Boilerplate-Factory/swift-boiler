@@ -30,28 +30,22 @@ $ rake install
 ## Usage
 
 Swift-Boiler has only one swift-boil binary, and the command follow this specific syntax:
-<details>
 <summary>swift-boil \<option\></summary>
 ```sh
 $ swift-boil --help
 ```
-</details>
 
-<details>
 <summary>swift-boil \<option\> \<template_path\> \<class_name\> \<options\> \<properties\></summary>
 ```sh
 $ swift-boil -t /Desktop/mytemplate.mustache MyView label:UILabel firstView:UIView secondView:CustomView
 $ swift-boil -t /Desktop/mytemplate.mustache MyView -d label:UILabel firstView:UIView secondView:CustomView
 ```
-</details>
 
-<details>
 <summary>swift-boil \<command\> \<class_name\> \<options\> \<properties\></summary>
 ```sh
 $ swift-boil v MyView label:UILabel 
 $ swift-boil view MyView -d label:UILabel
 ```
-</details>
 
 ### Commands:
 - `view or v`: command to generate the boiler plate code for a view
