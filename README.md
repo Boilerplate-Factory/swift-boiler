@@ -37,14 +37,14 @@ $ swift-boil --help
 
 <summary>swift-boil \<option\> \<template_path\> \<class_name\> \<options\> \<properties\></summary>
 ```sh
-$ swift-boil -t /Desktop/mytemplate.mustache MyView label:UILabel firstView:UIView secondView:CustomView
-$ swift-boil -t /Desktop/mytemplate.mustache MyView -d label:UILabel firstView:UIView secondView:CustomView
+$ swift-boil -t /Desktop/mytemplate.mustache MyView toplabel:UILabel bottomlabel:UILabel
+$ swift-boil -t /Desktop/mytemplate.mustache MyView -d toplabel:UILabel bottomlabel:UILabel
 ```
 
 <summary>swift-boil \<command\> \<class_name\> \<options\> \<properties\></summary>
 ```sh
-$ swift-boil v MyView label:UILabel 
-$ swift-boil view MyView -d label:UILabel
+$ swift-boil v MyView label:UILabel firstView:UIView secondView:CustomView
+$ swift-boil view MyView -d label:UILabel firstView:UIView secondView:CustomView
 ```
 
 ### Commands:
