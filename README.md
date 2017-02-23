@@ -13,16 +13,17 @@ $ brew update
 $ brew install swift-boiler
 ```
 
-### Install it with gem:
+<!-- ### Install it with [Homebrew](http://brew.sh):
 
 ```sh
 $ gem install swift-boiler
-```
+``` -->
 
 ## Usage
 
 Swift-Boiler has only one swift-boil binary, and the command follow this specific syntax:
-<summary>swift-boil \<option\></summary>
+<summary>swi
+ft-boil \<option\></summary>
 ```sh
 $ swift-boil --help
 ```
@@ -59,7 +60,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/Boilerplate-Factory/swift-boiler/issues.
+Bug reports and pull requests are welcome on GitHub at our [Bug Section](https://github.com/Boilerplate-Factory/swift-boiler/issues).
 
 
 ## License
