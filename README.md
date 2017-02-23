@@ -19,14 +19,6 @@ $ brew install swift-boiler
 $ gem install swift-boiler
 ```
 
-### Compile from source:
-
-```sh
-$ git clone git@github.com:Boilerplate-Factory/swift-boiler.git
-$ cd swift-boiler
-$ rake install
-```
-
 ## Usage
 
 Swift-Boiler has only one swift-boil binary, and the command follow this specific syntax:
@@ -43,8 +35,8 @@ $ swift-boil -t /Desktop/mytemplate.mustache MyView -d toplabel:UILabel bottomla
 
 <summary>swift-boil \<command\> \<class_name\> \<options\> \<properties\></summary>
 ```sh
-$ swift-boil v MyView label:UILabel firstView:UIView secondView:CustomView
-$ swift-boil view MyView -d label:UILabel firstView:UIView secondView:CustomView
+$ swift-boil v MyView mainlabel:UILabel firstView:UIView secondView:CustomView
+$ swift-boil view MyView -d mainlabel:UILabel firstView:UIView secondView:CustomView
 ```
 
 ### Commands:
@@ -67,7 +59,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/\<username\>/swift-boiler.
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/swift-boiler.
 
 
 ## License
