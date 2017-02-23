@@ -1,6 +1,6 @@
 # Swift::Boiler
 
-Swift-Boiler is a tool developed for iOS developers to speed up the process of implementing views, models, controllers, and many other common patterns found in an iOS project. Inspired by the swift syntax and the simplicity of the Rails generate tool, Swift-Boiler is simple to use boiler plate code generator that will get you up running in no time.
+Swift-Boiler is a tool developed for iOS developers to speed up the process of implementing views, models, controllers, and many other common patterns found in an iOS project. Inspired by the swift syntax and the simplicity of the Rails generate tool, Swift-Boiler is a simple to use boiler plate code generator that will get you up running in no time.
 
 ## Installation
 
@@ -31,14 +31,14 @@ $ rake install
 
 Swift-Boiler has only one swift-boil binary, and the command follow this specific syntax:
 <details>
-<summary>swift-boil OPTION</summary>
+<summary>swift-boil \<option\></summary>
 ```sh
 $ swift-boil --help
 ```
 </details>
 
 <details>
-<summary>swift-boil OPTION TEMPLATE_PATH CLASS_NAME [OPTIONS] [PROPERTIES]</summary>
+<summary>swift-boil \<option\> \<template_path\> \<class_name\> \<options\> \<properties\></summary>
 ```sh
 $ swift-boil -t /Desktop/mytemplate.mustache MyView label:UILabel
 $ swift-boil -t /Desktop/mytemplate.mustache MyView -d label:UILabel
@@ -46,7 +46,7 @@ $ swift-boil -t /Desktop/mytemplate.mustache MyView -d label:UILabel
 </details>
 
 <details>
-<summary>swift-boil COMMAND CLASS_NAME [OPTIONS] [PROPERTIES]</summary>
+<summary>swift-boil COMMAND CLASS_NAME \<options\> \<properties\></summary>
 ```sh
 $ swift-boil view MyView label:UILabel 
 $ swift-boil view MyView -d label:UILabel
@@ -61,7 +61,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/swift-boiler.
+Bug reports and pull requests are welcome on GitHub at https://github.com/\<username\>/swift-boiler.
 
 
 ## License
