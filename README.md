@@ -1,28 +1,55 @@
 # Swift::Boiler
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/swift/boiler`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Swift-Boiler is a tool developed for iOS developers to speed up the process of implementing views, models, controllers, and many other common patterns found in an iOS project. Inspired by the swift syntax and the simplicity of the Rails generate tool, Swift-Boiler is simple to use boiler plate code generator that will get you up running in no time.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Via Homebrew:
 
-```ruby
-gem 'swift-boiler'
+# Install Swift-Boiler via [Homebrew](http://brew.sh):
+
+```sh
+$ brew update
+$ brew install swift-boiler
 ```
 
-And then execute:
+# Install it with gem:
 
-    $ bundle
+```sh
+$ gem install swift-boiler
+```
 
-Or install it yourself as:
+# Compile from source:
 
-    $ gem install swift-boiler
+```sh
+$ git clone git@github.com:Boilerplate-Factory/swift-boiler.git
+$ cd swift-boiler
+$ rake install
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+Swift-Boiler has only one swift-boil binary, and the command follow this specific syntax:
+<details>
+<summary>swift-boil OPTION</summary>
+```sh
+eg. swift-boil --help
+```
+</details>
+<details>
+<summary>swift-boil OPTION TEMPLATE_PATH CLASS_NAME [OPTIONS] [PROPERTIES]</summary>
+```sh
+$ swift-boil -t /Desktop/mytemplate.mustache MyView label:UILabel
+$ swift-boil -t /Desktop/mytemplate.mustache MyView -d label:UILabel
+```
+</details>
+<details>
+<summary>swift-boil COMMAND CLASS_NAME [OPTIONS] [PROPERTIES]</summary>
+```sh
+$ swift-boil view MyView label:UILabel 
+$ swift-boil view MyView -d label:UILabel
+```
+</details>
 
 ## Development
 
