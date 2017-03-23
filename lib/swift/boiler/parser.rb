@@ -22,7 +22,7 @@ module Swift
           template.template_path = parse_template_path_from_name(first_argument)
 
         else
-          puts "Error: swift-boil does not support: " + current_token.content + " as the first argument"
+          puts "Error: swift-boil does not support: " + first_argument.content + " as the first argument"
           exit(0)
         end
 
@@ -54,7 +54,7 @@ module Swift
                 template.properties[:ui_view] << new_property  
               else
                 template.properties[:unknow_type] << new_property
-              end
+            end
           else
             puts "Error: swift-boil does not support: " + current_token.content + " as an option"
             exit(0)
