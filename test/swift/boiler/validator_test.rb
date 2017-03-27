@@ -6,24 +6,24 @@ class Swift::Boiler::ValidatorTest < Minitest::Test
 		validator = Swift::Boiler::Validator.new
 
 		# option only pattern
-		option_only_pattern_token_list = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'')]
-		assert(validator.validate_token_list(option_only_pattern_token_list), 'a list with only one option show be valid')
+		option_only_pattern_token_list = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-h')]
+		assert(validator.validate_token_list(option_only_pattern_token_list), 'a list with only one option should be valid')
 
 		# template path pattern
-		template_path_pattern_token_list_one = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
-		template_path_pattern_token_list_two = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
-		template_path_pattern_token_list_three = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
-		assert(validator.validate_token_list(template_path_pattern_token_list_one), 'a list with tempalte path pattern should be valid')
-		assert(validator.validate_token_list(template_path_pattern_token_list_two), 'a list with tempalte path pattern should be valid')
-		assert(validator.validate_token_list(template_path_pattern_token_list_three), 'a list with tempalte path pattern should be valid')
+		valid_template_path_pattern_one= [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-t'), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
+		valid_template_path_pattern_two = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-t'), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
+		valid_template_path_pattern_three = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-t'), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
+		assert(validator.validate_token_list(valid_template_path_pattern_one), 'a list with template path pattern should be valid')
+		assert(validator.validate_token_list(valid_template_path_pattern_two), 'a list with template path pattern should be valid')
+		assert(validator.validate_token_list(valid_template_path_pattern_three), 'a list with template path pattern should be valid')
 
 		# template name pattern
 		template_path_pattern_token_list_one = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
-		template_path_pattern_token_list_two = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
+		template_path_pattern_token_list_two = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
 		template_path_pattern_token_list_three = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
-		assert(validator.validate_token_list(template_path_pattern_token_list_one), 'a list with tempalte name pattern should be valid')
-		assert(validator.validate_token_list(template_path_pattern_token_list_two), 'a list with tempalte name pattern should be valid')
-		assert(validator.validate_token_list(template_path_pattern_token_list_three), 'a list with tempalte name pattern should be valid')
+		assert(validator.validate_token_list(template_path_pattern_token_list_one), 'a list with template name pattern should be valid')
+		assert(validator.validate_token_list(template_path_pattern_token_list_two), 'a list with template name pattern should be valid')
+		assert(validator.validate_token_list(template_path_pattern_token_list_three), 'a list with template name pattern should be valid')
 
 		# bad patterns
 		bad_pattern_token_list_one = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'')]
@@ -50,97 +50,94 @@ class Swift::Boiler::ValidatorTest < Minitest::Test
 	end
 
 	def test_is_token_list_valid()
-		# is_token_list_valid(list_count, is_first_element_option_type, has_template_name, has_template_path, has_class_name)
 		validator = Swift::Boiler::Validator.new
-		assert(validator.is_token_list_valid(34, true, false, true, true))	
-		assert(validator.is_token_list_valid(30, false, true, false, true))
-		assert(validator.is_token_list_valid(10, false, true, false, true))
-		assert(validator.is_token_list_valid(1, true, false, false, false))
-		assert(validator.is_token_list_valid(1, true, true, false, true))
-
-		assert(!validator.is_token_list_valid(2, true, false, false, false))
-		assert(!validator.is_token_list_valid(1, true, true, true, true))
-		assert(!validator.is_token_list_valid(1, true, true, true, false))
-		assert(!validator.is_token_list_valid(1, true, true, false, false))
-		assert(!validator.is_token_list_valid(1, true, false, true, false))
-		assert(!validator.is_token_list_valid(1, true, false, false, true))
-		assert(!validator.is_token_list_valid(1, false, true, true, true))
-		assert(!validator.is_token_list_valid(1, false, true, true, false))
-		assert(!validator.is_token_list_valid(1, false, true, false, false))
-		assert(!validator.is_token_list_valid(1, false, false, true, true))
-		assert(!validator.is_token_list_valid(1, false, false, true, false))
-		assert(!validator.is_token_list_valid(1, false, false, false, true))
-		assert(!validator.is_token_list_valid(1, false, false, false, false))
+		valid_token_list_one = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-h')]
+		valid_token_list_two = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
+		valid_token_list_three = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
+		valid_token_list_four = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
+		valid_token_list_five = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-t'), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
+		valid_token_list_six = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-t'), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
+		valid_token_list_seven = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-t'), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
+		invalid_token_list_one = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'')]
+		invalid_token_list_two = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
+		invalid_token_list_three = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,'')]
+		invalid_token_list_four = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,'')]
+		invalid_token_list_five = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
+		invalid_token_list_six = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,'')]
+		invalid_token_list_seven = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,'')]
+		invalid_token_list_eight = [Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
+		invalid_token_list_nine = [Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
+		invalid_token_list_ten = []
+		assert(validator.is_token_list_valid(valid_token_list_one))
+		assert(validator.is_token_list_valid(valid_token_list_two))
+		assert(validator.is_token_list_valid(valid_token_list_three))
+		assert(validator.is_token_list_valid(valid_token_list_four))
+		assert(validator.is_token_list_valid(valid_token_list_five))
+		assert(validator.is_token_list_valid(valid_token_list_six))
+		assert(validator.is_token_list_valid(valid_token_list_seven))
+		assert(!validator.is_token_list_valid(invalid_token_list_one))
+		assert(!validator.is_token_list_valid(invalid_token_list_two))
+		assert(!validator.is_token_list_valid(invalid_token_list_three))
+		assert(!validator.is_token_list_valid(invalid_token_list_four))
+		assert(!validator.is_token_list_valid(invalid_token_list_five))
+		assert(!validator.is_token_list_valid(invalid_token_list_six))
+		assert(!validator.is_token_list_valid(invalid_token_list_seven))
+		assert(!validator.is_token_list_valid(invalid_token_list_eight))
+		assert(!validator.is_token_list_valid(invalid_token_list_nine))
+		assert(!validator.is_token_list_valid(invalid_token_list_ten))
 	end
 
 	def test_has_template_path_pattern()
-		# has_template_path_pattern(is_first_element_option_type, has_template_name, has_template_path, has_class_name)
 		validator = Swift::Boiler::Validator.new
-		assert(validator.has_template_path_pattern(true, false, true, true))	
-
-		assert(!validator.has_template_path_pattern(true, true, true, true))
-		assert(!validator.has_template_path_pattern(true, true, true, false))
-		assert(!validator.has_template_path_pattern(true, true, false, true))
-		assert(!validator.has_template_path_pattern(true, true, false, false))
-		assert(!validator.has_template_path_pattern(true, false, true, false))
-		assert(!validator.has_template_path_pattern(true, false, false, true))
-		assert(!validator.has_template_path_pattern(true, false, false, false))
-		assert(!validator.has_template_path_pattern(false, true, true, true))
-		assert(!validator.has_template_path_pattern(false, true, true, false))
-		assert(!validator.has_template_path_pattern(false, true, false, true))
-		assert(!validator.has_template_path_pattern(false, true, false, false))
-		assert(!validator.has_template_path_pattern(false, false, true, true))
-		assert(!validator.has_template_path_pattern(false, false, true, false))
-		assert(!validator.has_template_path_pattern(false, false, false, true))
-		assert(!validator.has_template_path_pattern(false, false, false, false))
+		valid_instance_one = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-t'), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
+		valid_instance_two = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-t'), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
+		valid_instance_three = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-t'), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
+		invalid_instance_one = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-h'), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
+		invalid_instance_two = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
+		invalid_instance_three = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-t'), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
+		invalid_instance_four = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-t'), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,'')]
+		assert(validator.is_template_path_pattern(valid_instance_one))
+		assert(validator.is_template_path_pattern(valid_instance_two))
+		assert(validator.is_template_path_pattern(valid_instance_three))
+		assert(!validator.is_template_path_pattern(invalid_instance_one))
+		assert(!validator.is_template_path_pattern(invalid_instance_two))
+		assert(!validator.is_template_path_pattern(invalid_instance_three))
+		assert(!validator.is_template_path_pattern(invalid_instance_four))
 	end
 
-	def test_has_template_name_pattern()
-		# has_template_name_pattern(is_first_element_option_type, has_template_name, has_template_path, has_class_name)
-		validator = Swift::Boiler::Validator.new
-		assert(validator.has_template_name_pattern(false, true, false, true))
-		assert(validator.has_template_name_pattern(true, true, false, true))
-
-		assert(!validator.has_template_name_pattern(true, true, true, true))
-		assert(!validator.has_template_name_pattern(true, true, true, false))
-		assert(!validator.has_template_name_pattern(true, true, false, false))
-		assert(!validator.has_template_name_pattern(true, false, true, true))
-		assert(!validator.has_template_name_pattern(true, false, true, false))
-		assert(!validator.has_template_name_pattern(true, false, false, true))
-		assert(!validator.has_template_name_pattern(true, false, false, false))
-		assert(!validator.has_template_name_pattern(false, true, true, true))
-		assert(!validator.has_template_name_pattern(false, true, true, false))
-		assert(!validator.has_template_name_pattern(false, true, false, false))
-		assert(!validator.has_template_name_pattern(false, false, true, true))
-		assert(!validator.has_template_name_pattern(false, false, true, false))
-		assert(!validator.has_template_name_pattern(false, false, false, true))
-		assert(!validator.has_template_name_pattern(false, false, false, false))
+	def test_has_template_name_pattern()	
+		validator = Swift::Boiler::Validator.new	
+		valid_instance_one = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
+		valid_instance_two = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
+		valid_instance_three = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,''), Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,''),Swift::Boiler::Token.new(Swift::Boiler::Token::PROPERTY,'')]
+		invalid_instance_one = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-t'), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
+		invalid_instance_two = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_PATH,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
+		invalid_instance_three = [Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::TEMPLATE_NAME,''), Swift::Boiler::Token.new(Swift::Boiler::Token::CLASS_NAME,'')]
+		invalid_instance_four = []
+		assert(validator.is_template_name_pattern(valid_instance_one))
+		assert(validator.is_template_name_pattern(valid_instance_two))
+		assert(validator.is_template_name_pattern(valid_instance_three))
+		assert(!validator.is_template_name_pattern(invalid_instance_one))
+		assert(!validator.is_template_name_pattern(invalid_instance_two))
+		assert(!validator.is_template_name_pattern(invalid_instance_three))
+		assert(!validator.is_template_name_pattern(invalid_instance_four))
+		
 	end
 
 	def test_has_option_only_pattern() 
-		# has_option_only_pattern(list_count, is_first_element_option_type, has_template_name, has_template_path, has_class_name)
 		validator = Swift::Boiler::Validator.new
-		assert(validator.has_option_only_pattern(1, true, false, false, false))
-
-		assert(!validator.has_option_only_pattern(1, true, true, true, true))
-		assert(!validator.has_option_only_pattern(1, true, true, true, false))
-		assert(!validator.has_option_only_pattern(1, true, true, false, true))
-		assert(!validator.has_option_only_pattern(1, true, true, false, false))
-		assert(!validator.has_option_only_pattern(1, true, false, true, true))
-		assert(!validator.has_option_only_pattern(1, true, false, true, false))
-		assert(!validator.has_option_only_pattern(1, true, false, false, true))
-		assert(!validator.has_option_only_pattern(1, false, true, true, true))
-		assert(!validator.has_option_only_pattern(1, false, true, true, false))
-		assert(!validator.has_option_only_pattern(1, false, true, false, false))
-		assert(!validator.has_option_only_pattern(1, false, false, true, true))
-		assert(!validator.has_option_only_pattern(1, false, false, true, false))
-		assert(!validator.has_option_only_pattern(1, false, false, false, true))
-		assert(!validator.has_option_only_pattern(1, false, false, false, false))
-		assert(!validator.has_option_only_pattern(2, true, false, false, false))
-		assert(!validator.has_option_only_pattern(0, true, false, false, false))
-		assert(!validator.has_option_only_pattern(0, true, true, false, true))
-		assert(!validator.has_option_only_pattern(2, true, false, true, true))
-		assert(!validator.has_option_only_pattern(0, false, true, true, false))
-		assert(!validator.has_option_only_pattern(2, false, true, true, true))
+		valid_help_token_list_one = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-h')]
+		valid_help_token_list_two = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'--help')]
+		invalid_help_token_list_one = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-help')]
+		invalid_help_token_list_two = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'--h')]
+		invalid_help_token_list_three = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-t')]
+		invalid_help_token_list_four = [Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-h'), Swift::Boiler::Token.new(Swift::Boiler::Token::OPTION,'-h')]
+		assert(validator.is_help_pattern(valid_help_token_list_one))
+		assert(validator.is_help_pattern(valid_help_token_list_two))
+		assert(!validator.is_help_pattern(invalid_help_token_list_one))
+		assert(!validator.is_help_pattern(invalid_help_token_list_two))
+		assert(!validator.is_help_pattern(invalid_help_token_list_three))
+		assert(!validator.is_help_pattern(invalid_help_token_list_four))
 	end
+
 end
