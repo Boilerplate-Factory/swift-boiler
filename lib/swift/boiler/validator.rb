@@ -15,33 +15,29 @@ module Swift
     class Validator
 
       def validate_token_list(token_list)
-        if token_list.count > 0 
-          is_first_element_option_type = (token_list[0].type == Token::OPTION)
-          has_template_name = token_list_contains_one_instace_of_type(token_list, Token::TEMPLATE_NAME)
-          has_template_path = token_list_contains_one_instace_of_type(token_list, Token::TEMPLATE_PATH)
-          has_class_name = token_list_contains_one_instace_of_type(token_list, Token::CLASS_NAME)
-          return is_token_list_valid(token_list.count, is_first_element_option_type, has_template_name, has_template_path, has_class_name)        
-        else
-          return false
-        end
+        token_list.count > 0 && is_token_list_valid(token_list)
       end
 
-      def is_token_list_valid(list_count, is_first_element_option_type, has_template_name, has_template_path, has_class_name)
-        has_option_only_pattern(list_count, is_first_element_option_type, has_template_name, has_template_path, has_class_name) ||
-        has_template_path_pattern(is_first_element_option_type, has_template_name, has_template_path, has_class_name) ||
-        has_template_name_pattern(is_first_element_option_type, has_template_name, has_template_path, has_class_name)
+      def is_token_list_valid(token_list)
+        is_help_pattern(token_list) || is_template_path_pattern(token_list) || is_template_name_pattern(token_list)
       end
 
-      def has_template_path_pattern(is_first_element_option_type, has_template_name, has_template_path, has_class_name)
-        is_first_element_option_type && !has_template_name && has_template_path && has_class_name
+      def is_template_path_pattern(token_list)
+        has_one_template_name = token_list_contains_one_instace_of_type(token_list, Token::TEMPLATE_NAME)
+        has_one_template_path = token_list_contains_one_instace_of_type(token_list, Token::TEMPLATE_PATH)
+        has_one_class_name = token_list_contains_one_instace_of_type(token_list, Token::CLASS_NAME)
+        !has_one_template_name && has_one_template_path && has_one_class_name && is_first_token_template_option(token_list)
       end
 
-      def has_template_name_pattern(is_first_element_option_type, has_template_name, has_template_path, has_class_name)
-        has_template_name && !has_template_path && has_class_name
+      def is_template_name_pattern(token_list)
+        has_one_template_name = token_list_contains_one_instace_of_type(token_list, Token::TEMPLATE_NAME)
+        has_one_template_path = token_list_contains_one_instace_of_type(token_list, Token::TEMPLATE_PATH)
+        has_one_class_name = token_list_contains_one_instace_of_type(token_list, Token::CLASS_NAME)
+        !has_one_template_path && has_one_class_name && has_one_template_name && is_first_token_template_name_type(token_list)
       end
 
-      def has_option_only_pattern(list_count, is_first_element_option_type, has_template_name, has_template_path, has_class_name)
-        is_first_element_option_type && (list_count == 1) && !has_template_name && !has_template_path && !has_class_name
+      def is_help_pattern(token_list)
+          token_list.count == 1 && is_first_token_help_option(token_list)
       end
 
       def token_list_contains_one_instace_of_type(token_list, type)
@@ -53,6 +49,33 @@ module Swift
         end
         instance_counter == 1
       end
+
+      def is_first_token_template_name_type(token_list)
+        if token_list.count > 0 
+          token_list[0].type == Token::TEMPLATE_NAME
+        else
+          false
+        end 
+      end
+
+      def is_first_token_help_option(token_list) 
+        if token_list.count > 0 
+          first_token = token_list[0]
+          first_token.type == Token::OPTION && (first_token.content == '-h' || first_token.content == '--help')
+        else
+          false
+        end 
+      end
+
+      def is_first_token_template_option(token_list) 
+        if token_list.count > 0 
+          first_token = token_list[0]
+          first_token.type == Token::OPTION && (first_token.content == '-t' || first_token.content == '--template')
+        else
+          false
+        end
+      end
+      
     end
   end
 end

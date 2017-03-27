@@ -3,12 +3,24 @@ require 'test_helper'
 class Swift::Boiler::TokenFactoryTest < Minitest::Test
 
 	def test_create_token_list()
-		run_create_token_list_positive_test(VALID_TEST_PARAMETERS_ONE, VALID_TEST_PARAMETER_ONE_EXPECTED_TYPES, 1)
-		run_create_token_list_positive_test(VALID_TEST_PARAMETERS_TWO, VALID_TEST_PARAMETER_TWO_EXPECTED_TYPES, 2)
-		run_create_token_list_positive_test(VALID_TEST_PARAMETERS_THREE, VALID_TEST_PARAMETER_THREE_EXPECTED_TYPES, 3)
-		run_create_token_list_positive_test(VALID_TEST_PARAMETERS_FOUR, VALID_TEST_PARAMETER_FOUR_EXPECTED_TYPES, 4)
-		run_create_token_list_positive_test(VALID_TEST_PARAMETERS_FIVE, VALID_TEST_PARAMETER_FIVE_EXPECTED_TYPES, 5)
-		INVALID_TEST_PARAMETERS_LIST.each { |parameters| run_create_token_list_negative_test(parameters) }
+		valid_parameters_one = ['-t', '/Desktop/mytemplate.mustache', 'MyView', 'label:UILabel']
+		valid_parameters_two = ['-t', '/Desktop/mytemplate.mustache', 'MyView', '-d', 'label:UILabel']
+		valid_parameters_three = ['view', 'MyView', 'label:UILabel']
+		valid_parameters_four = ['--help']
+		valid_parameters_five = ['view', 'MyView', '-d', 'label:UILabel']
+		invalid_parameter_list = [['-help'],['--h'], ['-t', '/Desktop/mytemplate', 'MyView', 'label:UILabel'], ['-t', '/Desktop/.mustache', 'MyView', '-d', 'label:UILabel'], ['-t', '/Desktop/mytemplate.mustache', 'MyView', '--d', 'label:UILabel'], ['view', '_MyView', 'label:UILabel'], ['view', '3MyView', '-d', 'label:UILabel'], ['view', '&MyView', '-d', 'label:UILabel']]
+		expected_types_one = [Swift::Boiler::Token::OPTION, Swift::Boiler::Token::TEMPLATE_PATH, Swift::Boiler::Token::CLASS_NAME, Swift::Boiler::Token::PROPERTY]
+		expected_types_two = [Swift::Boiler::Token::OPTION, Swift::Boiler::Token::TEMPLATE_PATH, Swift::Boiler::Token::CLASS_NAME, Swift::Boiler::Token::OPTION, Swift::Boiler::Token::PROPERTY]
+		expected_types_three = [Swift::Boiler::Token::TEMPLATE_NAME, Swift::Boiler::Token::CLASS_NAME, Swift::Boiler::Token::PROPERTY]
+		expected_types_four = [Swift::Boiler::Token::OPTION]
+		expected_types_five = [Swift::Boiler::Token::TEMPLATE_NAME, Swift::Boiler::Token::CLASS_NAME, Swift::Boiler::Token::OPTION, Swift::Boiler::Token::PROPERTY]
+
+		run_create_token_list_positive_test(valid_parameters_one, expected_types_one, 1)
+		run_create_token_list_positive_test(valid_parameters_two, expected_types_two, 2)
+		run_create_token_list_positive_test(valid_parameters_three, expected_types_three, 3)
+		run_create_token_list_positive_test(valid_parameters_four, expected_types_four, 4)
+		run_create_token_list_positive_test(valid_parameters_five, expected_types_five, 5)
+		invalid_parameter_list.each { |parameters| run_create_token_list_negative_test(parameters) }
 	end
 
 	def run_create_token_list_negative_test(parameters)
@@ -31,8 +43,8 @@ class Swift::Boiler::TokenFactoryTest < Minitest::Test
 
 	def test_is_valid_template_path()
 		token_factory = Swift::Boiler::TokenFactory.new
-		valid_instances = VALID_TEST_TEMPLATE_PATH
-		invalid_instances = INVALID_TEST_TEMPLATE_PATH
+		valid_instances = ['/Users/user.name/Documents/filename.mustache', '/Users/user_name/Documents/filename.mustache', 'Users/user-name/Documents/filename.mustache', 'Users/user name/Documents/filename.mustache', '/Users/username/Documents/file_name.mustache', '/Users/username/Documents/file-name.mustache','./file-name.mustache','../../../file-name.mustache', '~/folder/file-name.mustache','/folder/.././file-name.mustache', '/Users/username/Documents/file n a me.mustache', 'C:\Program Files.mustache', 'C:\Desktop\test.mustache']
+		invalid_instances = ['/Users/user.name/Documents/filename', '/Users/user_name/Documents/.mustache', '.mustache', '/folder/test.mustaches']
 
 		while !valid_instances.empty?
 			valid_instance = valid_instances.shift
@@ -47,8 +59,8 @@ class Swift::Boiler::TokenFactoryTest < Minitest::Test
 
 	def test_is_valid_class_name()
 		token_factory = Swift::Boiler::TokenFactory.new
-		valid_instances = VALID_TEST_CLASS_NAMES
-		invalid_instances = INVALID_TEST_CLASS_NAMES
+		valid_instances = ['MyClass', 'myclass', 'myClass', 'my_class', 'My_Class', 'My1Class', 'MyClass1', 'MyClass'] 
+		invalid_instances = ['3MyClass', '#myclass', 'my#Class', 'my$class', 'My(Class', 'M\'Class', 'My\"Class', 'My*Class', '&MyClass', 'My^Class', 'My+Class', 'My-Class'] 
 
 		while !valid_instances.empty?
 			valid_instance = valid_instances.shift
@@ -63,8 +75,8 @@ class Swift::Boiler::TokenFactoryTest < Minitest::Test
 
 	def test_is_valid_property()
 		token_factory = Swift::Boiler::TokenFactory.new
-		valid_instances = VALID_TEST_PROPERTIES
-		invalid_instances = INVALID_TEST_PROPERTIES
+		valid_instances = ['property:Class', 'property:class', 'Property:Class', 'Property:class', 'p:Class', 'p:class', 'P:Class', 'P:class', 'property:Cla', 'property:cla', 'pro2perty:class', 'property:cl3ass', 'property4:class', 'property:class5', '_property:class', 'pro-perty:class', 'prop_erty:class', 'property:cl-ass', 'property:cl_ass', 'prop0erty:Class', 'property1:Class','property:C2lass']
+		invalid_instances = ['property:1class', 'property:_2class', 'property:_class', '0property:class', 'property:C', 'property:c', 'property:Cl', 'property:cl', ':Class', ':class', 'property:', '::class', 'property::', 'p*Class', 'p*class', 'property*Class', 'property*class', 'property#C', 'property#c', 'Property@C', 'Property@c', 'Property&Class', 'Property&class', 'p::Class', 'p::class', 'property::Class', 'property::class', 'property::C', 'property::c', 'Prop#erty:C', 'Prope$rty:c', 'Property:Cl@ss']
 
 		while !valid_instances.empty?
 			valid_instance = valid_instances.shift
@@ -80,8 +92,8 @@ class Swift::Boiler::TokenFactoryTest < Minitest::Test
 
 	def test_is_valid_option()
 		token_factory = Swift::Boiler::TokenFactory.new
-		valid_instances = VALID_TEST_OPTIONS
-		invalid_instances = INVALID_TEST_OPTIONS
+		valid_instances = ['-o', '--opt'] 
+		invalid_instances = ['o','option','opt', 'o-', '-op', '-opt', '-opti', '-optio', '-option', 'o-ption', 'op-tion', 'opt-ion', 'opti-on', 'optio-n', 'option-', '--o', 'o--', '--op', 'op--', 'o--p', 'o--pt', 'o--ption', 'op--tion', 'opt--ion', 'optio--n', 'option--', '**option', '++option', '##option', '*o', '+o', '#o']
 
 		while !valid_instances.empty?
 			valid_instance = valid_instances.shift
