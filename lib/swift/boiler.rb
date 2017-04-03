@@ -9,20 +9,29 @@ module Swift
     class << self
 
       def boil(arguments)
-        scanner = Swift::Boiler::Scanner.new
-        parser = Swift::Boiler::Parser.new
-        builder = Swift::Boiler::Builder.new
-
         begin
-          token_list = scanner.scan(arguments)
-          template_info = parser.parse_tokens(token_list)
-          builder.build_template(template_info)
-          
+          tempalte = build_template_from_arguments(arguments)
+          create_file_from_template(template)    
         rescue ArgumentError => argumentError
           print "swift-boiler: #{argumentError.message}. Please see 'swift-boil --help'."
         end
       end
     
+      private 
+
+      def create_file_from_template(template)
+        builder = Swift::Boiler::Builder.new
+        builder.build_template(template)
+      end
+
+      def build_template_from_arguments(arguments)
+        scanner = Swift::Boiler::Scanner.new
+        parser = Swift::Boiler::Parser.new
+        tokens = scanner.create_valid_token_pattern_from_arguments(arguments)
+        template = parser.create_template_from_tokens(tokens)
+        template
+      end
+
     end
-  end
+  end 
 end

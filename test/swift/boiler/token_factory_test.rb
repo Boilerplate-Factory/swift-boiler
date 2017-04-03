@@ -20,19 +20,19 @@ class Swift::Boiler::TokenFactoryTest < Minitest::Test
 		run_create_token_list_positive_test(valid_parameters_three, expected_types_three, 3)
 		run_create_token_list_positive_test(valid_parameters_four, expected_types_four, 4)
 		run_create_token_list_positive_test(valid_parameters_five, expected_types_five, 5)
-		invalid_parameter_list.each { |parameters| run_create_token_list_negative_test(parameters) }
+		invalid_parameter_list.each { |parameters| run_create_tokens_from_arguments_negative_test(parameters) }
 	end
 
-	def run_create_token_list_negative_test(parameters)
+	def run_create_tokens_from_arguments_negative_test(parameters)
 		token_factory = Swift::Boiler::TokenFactory.new
-		assert_raises { token_factory.create_token_list(parameters) }
+		assert_raises { token_factory.create_tokens_from_arguments(parameters) }
 	end
 
 	def run_create_token_list_positive_test(parameters, expected_types, test_index)
 		token_factory = Swift::Boiler::TokenFactory.new
 		number_of_arguments = parameters.count
 		expected_type = expected_types
-		token_list = token_factory.create_token_list(parameters)
+		token_list = token_factory.create_tokens_from_arguments(parameters)
 		token_list_count = token_list.count
 		assert(token_list_count == number_of_arguments,  "#{test_index}: There should be a token for each argument in a list of valid arguments there are #{number_of_arguments} arguments and #{token_list_count} tokens")
 		
