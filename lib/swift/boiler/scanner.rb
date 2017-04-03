@@ -1,19 +1,18 @@
 
 require 'swift/boiler/token'
 require 'swift/boiler/token_factory'
-require 'swift/boiler/validator'
+require 'swift/boiler/token_pattern_validator'
 
 module Swift
   module Boiler
     class Scanner
 
-      def scan(arguments)
+      def create_valid_token_pattern_from_arguments(arguments)
       	token_factory = Swift::Boiler::TokenFactory.new
-        validator = Swift::Boiler::Validator.new
-
-        token_list = token_factory.create_token_list(arguments)
-        if validator.validate_token_list(token_list)
-        	return token_list
+        token_pattern_validator = Swift::Boiler::TokenPatternValidator.new
+        tokens = token_factory.create_tokens_from_arguments(arguments)
+        if token_pattern_validator.validate(tokens)
+        	return tokens
         else
         	raise ArgumentError.new("The following sequence of arguments was not valid #{arguments}.")
         end
