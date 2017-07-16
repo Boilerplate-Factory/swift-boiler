@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Pedro Peres"]
   spec.email         = ["pedro.peres@weightwatchers.com"]
 
-  spec.summary       = %q{hi there}
-  spec.description   = %q{ hey hey}
-  spec.homepage      = "http://zzz.com"
+  spec.summary       = %q{This gem generate swift boilter plate code}
+  spec.description   = %q{This gem generate swift boilter plate code}
+  spec.homepage      = "https://github.com/Boilerplate-Factory/swift-boiler"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
