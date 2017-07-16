@@ -25,17 +25,15 @@ module Swift
         template
       end
 
-      private
-
       def get_template_path(tokens)
         tokens.each do |token|
-          if can_generate_path_from_token(token)
+          if is_path_generation_possible_from_token(token)
             return get_template_path_from_token(token)
           end
         end
       end
 
-      def can_generate_path_from_token(token)
+      def is_path_generation_possible_from_token(token)
         is_template_path_token(token) || is_template_name_token(token)
       end
 
@@ -95,18 +93,18 @@ module Swift
 
       def get_template_name_from_token(template_name_token)
         if is_abreviation(template_name_token)
-          get_name_from_abreviation(teplate_name.content.downcase)
+          get_name_from_abreviation(template_name_token.content.downcase)
         else
           get_name_from_name_token(template_name_token)
         end
       end
 
-    	def get_property_from_token(token)
+      def get_property_from_token(token)
         name = get_property_name_from_token(token)
         type = get_property_type_from_token(token)
         capitalized_name = capitalize_name(name)
         create_property_dictionary(name, capitalized_name, type)
-    	end
+      end
 
       def create_property_dictionary(name, capitalized_name, type)
         property = {}
@@ -118,7 +116,8 @@ module Swift
 
       def get_property_name_from_token(token)
         argument_list = token.content.split(/:/)
-        argument_list[PROPERTY_NAME_INDEX]
+        name = argument_list[PROPERTY_NAME_INDEX]
+        downcase_name(name)
       end
 
       def get_property_type_from_token(token)
@@ -126,14 +125,19 @@ module Swift
         argument_list[PROPERTY_TYPE_INDEX]
       end
 
-    	def capitalize_name(name)
-    		place_holder = name.dup
-    		first_letter = place_holder.slice!(0).capitalize
-    		first_letter + place_holder
-    	end
+      def capitalize_name(name)
+        name.split.map(&:capitalize).join(' ')
+      end
+
+      def downcase_name(name)
+        place_holder = name.dup
+        first_letter = place_holder.slice!(0).downcase
+        first_letter + place_holder
+      end
 
       def get_name_from_abreviation(abreviation)
-        SHORTCUTS[abreviation.to_sym]
+        print SHORTCUTS[abreviation.to_sym]
+        SHORTCUTS[abreviation.to_sym] 
       end
 
       def get_name_from_name_token(template_name_token)
@@ -142,12 +146,14 @@ module Swift
 
       def is_abreviation(template_name_token)
         template_name = template_name_token.content.downcase
-        SHORTCUTS.has_key?(template_name)
+        template_name_token.type == Token::TEMPLATE_NAME && SHORTCUTS.has_key?(template_name.to_sym)
       end
 
       def is_protocol_token(token) 
         token.type == Token::OPTION && (token.content == "-p" || token.content == "--protocol")
       end
+
+      private
 
       def is_template_path_token(token)
         token.type == Token::TEMPLATE_PATH

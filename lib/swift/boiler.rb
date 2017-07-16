@@ -10,7 +10,7 @@ module Swift
 
       def boil(arguments)
         begin
-          tempalte = build_template_from_arguments(arguments)
+          template = build_template_from_arguments(arguments)
           create_file_from_template(template)    
         rescue ArgumentError => argumentError
           print "swift-boiler: #{argumentError.message}. Please see 'swift-boil --help'."
