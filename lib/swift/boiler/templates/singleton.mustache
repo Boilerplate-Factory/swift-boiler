@@ -1,17 +1,17 @@
 //
 //  {{class_name}}.swift
 //
-//  Created by {{dev_name}} on {{date}}.
+//  Created by <# Developer Name #> on {{date}}.
 //
 //
 
 
 class {{class_name}} {
 
-    static let sharedInstance = {{class_name}}()
+    static let shared: {{class_name}}
 
-    private init() {
-
+    private init(_ shared: {{class_name}} = {{class_name}}()) {
+    	self.shared = shared
     }
 
 }

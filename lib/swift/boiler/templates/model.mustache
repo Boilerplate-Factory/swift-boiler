@@ -7,13 +7,25 @@
 
 struct {{class_name}} {
 
+{{#properties.ui_label}}
+    private let {{name}}: {{type}} = {{type}}()
+{{/properties.ui_label}}
+{{#properties.ui_view}}
+    private let {{name}}: {{type}} = {{type}}()
+{{/properties.ui_view}}
 {{#properties.unknow_type}}
-    var {{property_name}}: {{property_type}} = {{property_type}}()
+    private let {{name}}: {{type}} = {{type}}()
 {{/properties.unknow_type}}
 
-    public init({{#properties.unknow_type}}let {{property_name}}:{{property_type}}, {{/properties.unknow_type}}) {
+    public init({{#properties.unknow_type}}, {{name}}:{{type}}{{/properties.unknow_type}}{{#properties.ui_label}}, {{name}}:{{type}}{{/properties.ui_label}}{{#properties.ui_view}}, {{name}}:{{type}}{{/properties.ui_view}}) {
+{{#properties.ui_label}}
+         self.{{name}} = {{name}}
+{{/properties.ui_label}}
+{{#properties.ui_view}}
+         self.{{name}} = {{name}}
+{{/properties.ui_view}}
 {{#properties.unknow_type}}
-         self.{{property_name}} = {{property_name}}
+         self.{{name}} = {{name}}
 {{/properties.unknow_type}}
     }
 }
