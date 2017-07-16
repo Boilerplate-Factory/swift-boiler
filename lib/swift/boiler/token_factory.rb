@@ -1,4 +1,3 @@
-
 require 'swift/boiler/token'
 
 module Swift
