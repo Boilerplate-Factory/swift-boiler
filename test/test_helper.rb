@@ -1,10 +1,4 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'swift/boiler'
-require 'swift/boiler/builder'
-require 'swift/boiler/scanner'
-require 'swift/boiler/parser'
-require 'swift/boiler/template'
-require 'swift/boiler/token'
+
 require 'minitest/autorun'
-require 'swift/boiler/token_factory'
-require 'swift/boiler/token_pattern_validator'

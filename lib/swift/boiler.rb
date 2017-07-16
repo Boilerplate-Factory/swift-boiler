@@ -1,37 +1,41 @@
 require 'swift/boiler/builder'
-require 'swift/boiler/scanner'
-require 'swift/boiler/parser'
-require 'swift/boiler/template'
-require 'swift/boiler/token'
 
 module Swift
   module Boiler
-    class << self
+    AVAILABLE_ACTIONS = ['view']
+
+      class << self
 
       def boil(arguments)
-        begin
-          template = build_template_from_arguments(arguments)
-          create_file_from_template(template)    
-        rescue ArgumentError => argumentError
-          print "swift-boiler: #{argumentError.message}. Please see 'swift-boil --help'."
-        end
+        action = arguments.shift
+        parse_action(action, arguments)
       end
-    
-      private 
 
-      def create_file_from_template(template)
+      def parse_action(action, arguments)
         builder = Swift::Boiler::Builder.new
-        builder.build_template(template)
-      end
+        key = action.downcase
+        template = key + '.mustache'
 
-      def build_template_from_arguments(arguments)
-        scanner = Swift::Boiler::Scanner.new
-        parser = Swift::Boiler::Parser.new
-        tokens = scanner.create_valid_token_pattern_from_arguments(arguments)
-        template = parser.create_template_from_tokens(tokens)
-        template
-      end
+        shortcut_map = {
+            tableviewcell: 'table_view_cell',
+            m: 'model',
+            v: 'view',
+            c: 'controller',
+            s: 'singleton',
+            tvc: 'table_view_cell'
+        }
 
+        # default - look for templates that match this action
+        if builder.template_exists(template)
+          builder.boil_template(template, arguments)
+        elsif shortcut_map.has_key?(key.to_sym)
+            # shortcuts - look for specific actions
+            builder.boil_template(shortcut_map[key.to_sym] + '.mustache', arguments)
+        else
+            puts 'Could not find template for: ' + key
+        end
+
+      end
     end
-  end 
+  end
 end
