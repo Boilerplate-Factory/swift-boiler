@@ -17,14 +17,14 @@ Commands follow this specific syntax:
 ```sh
 $ swift-boil --help
 $ swift-boil v MyView mainlabel:UILabel firstView:UIView secondView:CustomView
-$ swift-boil view MyView -d mainlabel:UILabel firstView:UIView secondView:CustomView
+$ swift-boil view MyView -p mainlabel:UILabel firstView:UIView secondView:CustomView
 ```
 
 <summary>To use a custom template use:</summary>
 
 ```sh
 $ swift-boil -t /Desktop/mytemplate.mustache MyView toplabel:UILabel bottomlabel:UILabel
-$ swift-boil -t /Desktop/mytemplate.mustache MyView -d toplabel:UILabel bottomlabel:UILabel
+$ swift-boil -t /Desktop/mytemplate.mustache MyView -p toplabel:UILabel bottomlabel:UILabel
 ``` 
 
 ### Commands:
@@ -36,7 +36,7 @@ $ swift-boil -t /Desktop/mytemplate.mustache MyView -d toplabel:UILabel bottomla
 
 ### Options:
 - `--help or -h`: shows usage details
-- `--delegate or -d`: it indicates that Swift-Boiler should add a delegate to the class being generated
+- `--protocol or -p`: it indicates that Swift-Boiler should add a delegate or data source to the class being generated
 - `--template or -t`: allows user to specify a custom template to be used to generate code
 
 ## Development
