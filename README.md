@@ -4,11 +4,10 @@ Swift-Boiler is a tool developed for iOS developers to speed up the process of i
 
 ## Installation
 
-### Install Swift-Boiler via [Homebrew](http://brew.sh):
+### Install Swift-Boiler:
 
 ```sh
-$ brew update
-$ brew install swift-boiler
+$ gem install swift-boiler
 ```
 
 <!-- ### Install it with [Homebrew](http://brew.sh):
@@ -22,18 +21,21 @@ $ gem install swift-boiler
 Swift-Boiler has only one swift-boil binary, and the command follow this specific syntax:
 <summary>swi
 ft-boil \<option\></summary>
+
 ```sh
 $ swift-boil --help
 ```
 
 <summary>swift-boil \<option\> \<template_path\> \<class_name\> \<options\> \<properties\></summary>
+
 ```sh
 $ swift-boil -t /Desktop/mytemplate.mustache MyView toplabel:UILabel bottomlabel:UILabel
 $ swift-boil -t /Desktop/mytemplate.mustache MyView -d toplabel:UILabel bottomlabel:UILabel
 ```
 
 <summary>swift-boil \<command\> \<class_name\> \<options\> \<properties\></summary>
-```sh
+
+``sh
 $ swift-boil v MyView mainlabel:UILabel firstView:UIView secondView:CustomView
 $ swift-boil view MyView -d mainlabel:UILabel firstView:UIView secondView:CustomView
 ```
