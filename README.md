@@ -10,31 +10,22 @@ Swift-Boiler is a tool developed for iOS developers to speed up the process of i
 $ gem install swift-boiler
 ```
 
-<!-- ### Install it with [Homebrew](http://brew.sh):
-
-```sh
-$ gem install swift-boiler
-``` -->
-
 ## Usage
 
-The command follow this specific syntax:
+Commands follow this specific syntax:
 
 ```sh
 $ swift-boil --help
-```
-
-``sh
 $ swift-boil v MyView mainlabel:UILabel firstView:UIView secondView:CustomView
 $ swift-boil view MyView -d mainlabel:UILabel firstView:UIView secondView:CustomView
 ```
 
-<!-- <summary>use swift-</summary>
+<summary>To use a custom template use:</summary>
 
 ```sh
 $ swift-boil -t /Desktop/mytemplate.mustache MyView toplabel:UILabel bottomlabel:UILabel
 $ swift-boil -t /Desktop/mytemplate.mustache MyView -d toplabel:UILabel bottomlabel:UILabel
-``` -->
+``` 
 
 ### Commands:
 - `view or v`: command to generate the boiler plate code for a view
