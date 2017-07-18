@@ -10,31 +10,22 @@ Swift-Boiler is a tool developed for iOS developers to speed up the process of i
 $ gem install swift-boiler
 ```
 
-<!-- ### Install it with [Homebrew](http://brew.sh):
-
-```sh
-$ gem install swift-boiler
-``` -->
-
 ## Usage
 
-The command follow this specific syntax:
+Commands follow this specific syntax:
 
 ```sh
 $ swift-boil --help
-```
-
-``sh
 $ swift-boil v MyView mainlabel:UILabel firstView:UIView secondView:CustomView
-$ swift-boil view MyView -d mainlabel:UILabel firstView:UIView secondView:CustomView
+$ swift-boil view MyView -p mainlabel:UILabel firstView:UIView secondView:CustomView
 ```
 
-<!-- <summary>use swift-</summary>
+<summary>To use a custom template use:</summary>
 
 ```sh
 $ swift-boil -t /Desktop/mytemplate.mustache MyView toplabel:UILabel bottomlabel:UILabel
-$ swift-boil -t /Desktop/mytemplate.mustache MyView -d toplabel:UILabel bottomlabel:UILabel
-``` -->
+$ swift-boil -t /Desktop/mytemplate.mustache MyView -p toplabel:UILabel bottomlabel:UILabel
+``` 
 
 ### Commands:
 - `view or v`: command to generate the boiler plate code for a view
@@ -45,7 +36,7 @@ $ swift-boil -t /Desktop/mytemplate.mustache MyView -d toplabel:UILabel bottomla
 
 ### Options:
 - `--help or -h`: shows usage details
-- `--delegate or -d`: it indicates that Swift-Boiler should add a delegate to the class being generated
+- `--protocol or -p`: it indicates that Swift-Boiler should add a delegate or data source to the class being generated
 - `--template or -t`: allows user to specify a custom template to be used to generate code
 
 ## Development
