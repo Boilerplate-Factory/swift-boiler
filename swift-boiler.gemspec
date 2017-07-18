@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["pedro.peres@weightwatchers.com"]
 
   spec.summary       = %q{This gem generate swift boilter plate code}
-  spec.description   = %q{This gem generate swift boilter plate code}
+  spec.description   = %q{Swift-Boiler is a tool developed for iOS developers to speed up the process of implementing views, models, controllers, and many other common patterns found in an iOS project. Inspired by the swift syntax and the simplicity of the Rails generate tool, Swift-Boiler is a simple to use boiler plate code generator that will get you up running in no time.}
   spec.homepage      = "https://github.com/Boilerplate-Factory/swift-boiler"
   spec.license       = "MIT"
 
@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
     raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
   end
 
-  spec.files         = Dir["{bin,lib}/**/**/*", "LICENSE", "README.md"]
+  spec.files         = Dir["{bin,lib}/**/**/**/**", "LICENSE", "README.md"]
   spec.bindir        = "bin"
   spec.executables   = ["swift-boil"]
   spec.require_paths = ["lib"]
@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.12"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_dependency "mustache", "~> 1.0.3"
 end
