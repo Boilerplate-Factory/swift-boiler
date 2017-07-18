@@ -6,7 +6,6 @@ module Swift
         Mustache.template_file = template.template_path
         mustache_template = Mustache.new
         mustache_template[:class_name] = template.class_name
-        #mustache_template[:dev_name] = template.developer_name
         mustache_template[:date] = template.date
         mustache_template[:options] = template.options
         mustache_template[:properties] = template.properties

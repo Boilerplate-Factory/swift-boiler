@@ -1,0 +1,25 @@
+
+Usage:
+
+$ swift-boil <command> <option> <properties>
+
+Commands:
+
+view or v: command to generate the boiler plate code for a view
+model or m: command to generate the boiler plate code for a model
+controller or c: command to generate the boiler plate code for a controller
+tableViewCell or tvc: command to generate the boiler plate code for a table view cell
+singleton or s: command to generate the boiler plate code for a singleton
+
+Options:
+
+--help or -h: shows usage details
+--protocol or -p: it indicates that Swift-Boiler should add a delegate or data source to the class being generated
+--template or -t: allows user to specify a custom template to be used to generate code
+
+Examples:
+
+$ swift-boil view MyView -p mainlabel:UILabel firstView:UIView secondView:CustomView
+$ swift-boil tvc MyTableViewCell mainlabel:UILabel firstView:UIView secondView:CustomView
+
+

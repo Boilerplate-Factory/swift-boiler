@@ -9,11 +9,15 @@ module Swift
     class << self
 
       def boil(arguments)
-        begin
-          template = build_template_from_arguments(arguments)
-          create_file_from_template(template)    
-        rescue ArgumentError => argumentError
-          print "swift-boiler: #{argumentError.message}. Please see 'swift-boil --help'."
+        if is_help_request(arguments) 
+          print_help_text()
+        else 
+          begin
+            template = build_template_from_arguments(arguments)
+            create_file_from_template(template)    
+          rescue ArgumentError => argumentError
+            print "swift-boiler: #{argumentError.message}. Please see 'swift-boil --help'."
+          end
         end
       end
     
@@ -30,6 +34,17 @@ module Swift
         tokens = scanner.create_valid_token_pattern_from_arguments(arguments)
         template = parser.create_template_from_tokens(tokens)
         template
+      end
+
+      def is_help_request(arguments)
+        return arguments[0] == '-h' || arguments[0] == '--help' || arguments == []
+      end
+
+      def print_help_text()        
+        file = File.dirname(__FILE__) + '/boiler/templates/help.mustache'
+        File.readlines(file).each do |line|
+          puts line
+        end
       end
 
     end
