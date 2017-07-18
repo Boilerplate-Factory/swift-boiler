@@ -4,39 +4,28 @@ Swift-Boiler is a tool developed for iOS developers to speed up the process of i
 
 ## Installation
 
-### Install Swift-Boiler via [Homebrew](http://brew.sh):
-
-```sh
-$ brew update
-$ brew install swift-boiler
-```
-
-<!-- ### Install it with [Homebrew](http://brew.sh):
+### Install Swift-Boiler:
 
 ```sh
 $ gem install swift-boiler
-``` -->
+```
 
 ## Usage
 
-Swift-Boiler has only one swift-boil binary, and the command follow this specific syntax:
-<summary>swi
-ft-boil \<option\></summary>
+Commands follow this specific syntax:
+
 ```sh
 $ swift-boil --help
+$ swift-boil v MyView mainlabel:UILabel firstView:UIView secondView:CustomView
+$ swift-boil view MyView -p mainlabel:UILabel firstView:UIView secondView:CustomView
 ```
 
-<summary>swift-boil \<option\> \<template_path\> \<class_name\> \<options\> \<properties\></summary>
+<summary>To use a custom template use:</summary>
+
 ```sh
 $ swift-boil -t /Desktop/mytemplate.mustache MyView toplabel:UILabel bottomlabel:UILabel
-$ swift-boil -t /Desktop/mytemplate.mustache MyView -d toplabel:UILabel bottomlabel:UILabel
-```
-
-<summary>swift-boil \<command\> \<class_name\> \<options\> \<properties\></summary>
-```sh
-$ swift-boil v MyView mainlabel:UILabel firstView:UIView secondView:CustomView
-$ swift-boil view MyView -d mainlabel:UILabel firstView:UIView secondView:CustomView
-```
+$ swift-boil -t /Desktop/mytemplate.mustache MyView -p toplabel:UILabel bottomlabel:UILabel
+``` 
 
 ### Commands:
 - `view or v`: command to generate the boiler plate code for a view
@@ -47,7 +36,7 @@ $ swift-boil view MyView -d mainlabel:UILabel firstView:UIView secondView:Custom
 
 ### Options:
 - `--help or -h`: shows usage details
-- `--delegate or -d`: it indicates that Swift-Boiler should add a delegate to the class being generated
+- `--protocol or -p`: it indicates that Swift-Boiler should add a delegate or data source to the class being generated
 - `--template or -t`: allows user to specify a custom template to be used to generate code
 
 ## Development
