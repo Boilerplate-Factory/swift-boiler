@@ -19,8 +19,7 @@ $ gem install swift-boiler
 ## Usage
 
 Swift-Boiler has only one swift-boil binary, and the command follow this specific syntax:
-<summary>swi
-ft-boil \<option\></summary>
+<summary>swift-boil \<option\></summary>
 
 ```sh
 $ swift-boil --help
