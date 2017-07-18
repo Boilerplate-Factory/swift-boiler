@@ -18,26 +18,23 @@ $ gem install swift-boiler
 
 ## Usage
 
-Swift-Boiler has only one swift-boil binary, and the command follow this specific syntax:
-<summary>swift-boil \<option\></summary>
+The command follow this specific syntax:
 
 ```sh
 $ swift-boil --help
 ```
 
-<summary>swift-boil \<option\> \<template_path\> \<class_name\> \<options\> \<properties\></summary>
-
-```sh
-$ swift-boil -t /Desktop/mytemplate.mustache MyView toplabel:UILabel bottomlabel:UILabel
-$ swift-boil -t /Desktop/mytemplate.mustache MyView -d toplabel:UILabel bottomlabel:UILabel
-```
-
-<summary>swift-boil \<command\> \<class_name\> \<options\> \<properties\></summary>
-
 ``sh
 $ swift-boil v MyView mainlabel:UILabel firstView:UIView secondView:CustomView
 $ swift-boil view MyView -d mainlabel:UILabel firstView:UIView secondView:CustomView
 ```
+
+<!-- <summary>use swift-</summary>
+
+```sh
+$ swift-boil -t /Desktop/mytemplate.mustache MyView toplabel:UILabel bottomlabel:UILabel
+$ swift-boil -t /Desktop/mytemplate.mustache MyView -d toplabel:UILabel bottomlabel:UILabel
+``` -->
 
 ### Commands:
 - `view or v`: command to generate the boiler plate code for a view
