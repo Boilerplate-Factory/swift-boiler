@@ -126,7 +126,9 @@ module Swift
       end
 
       def capitalize_name(name)
-        name.split.map(&:capitalize).join(' ')
+        place_holder = name.dup
+        first_letter = place_holder.slice!(0).capitalize
+        first_letter + place_holder
       end
 
       def downcase_name(name)
