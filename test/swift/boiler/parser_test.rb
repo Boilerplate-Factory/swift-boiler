@@ -38,7 +38,7 @@ class Swift::Boiler::ParserTest < Minitest::Test
 
   def test_capitalize_name()
     parser = Swift::Boiler::Parser.new
-    assert(parser.capitalize_name("tableviewcell") == "Tableviewcell")
+    assert(parser.capitalize_name("tableViewCell") == "TableViewCell")
     assert(parser.capitalize_name("m") == "M")
     assert(parser.capitalize_name("view") == "View")
   end

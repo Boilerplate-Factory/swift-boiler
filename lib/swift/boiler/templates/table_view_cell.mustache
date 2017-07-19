@@ -21,35 +21,21 @@ class {{class_name}}: UITableViewCell {
     {{#options.protocol}}
     weak private var delegate: {{class_name}}Delegate?
     weak private var datasource: {{class_name}}DataSource?
-    {{/options.protocol}}
+    {{/options.protocol}}    
     {{#properties.ui_label}}
-    
-    private let {{name}}:UILabel = {
-        let {{name}} = UILabel()
-        {{name}}.textColor = <# UIColor #> 
-        {{name}}.font = <# UIFont #>
-        return {{name}}
-    }()
+    private let {{name}} = UILabel() 
     {{/properties.ui_label}}
     {{#properties.ui_view}}
-    
-    private let {{name}}:UIView = {
-        let {{name}} = UIView()
-        {{name}}.backgroundColor = <# UIColor #> 
-        {{name}}.clipBounds = <# true or false #> 
-        return {{name}}
-    }()
+    private let {{name}} = UIView()
     {{/properties.ui_view}}
     {{#properties.unknow_type}}
-    
-    private let {{name}}:{{type}} = {
-        return {{type}}() 
-    }() 
+    private let {{name}} = {{type}}() 
     {{/properties.unknow_type}}
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         setupView()
+        setupConstraints()
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -72,21 +58,39 @@ class {{class_name}}: UITableViewCell {
     // MARK: - Setup
     
     private func setupView() {
-        addViewComponents()
-        setupConstraints()
-    }
-
-    private func addViewComponents() {
     {{#properties.ui_label}}
-        contentView.addSubview({{name}})
+        setup{{capitalized_name}}()
     {{/properties.ui_label}}
     {{#properties.ui_view}}
-        contentView.addSubview({{name}})
+        setup{{capitalized_name}}()
     {{/properties.ui_view}}
     {{#properties.unknow_type}}
-        contentView.addSubview({{name}})
+        setup{{capitalized_name}}()
     {{/properties.unknow_type}}
     }
+
+    {{#properties.ui_label}}
+    private func setup{{capitalized_name}}() {
+        {{name}}.textColor = <# UIColor #>
+        {{name}}.font = <# UIFont #>
+        addSubview({{name}})
+    }
+
+    {{/properties.ui_label}}
+    {{#properties.ui_view}}
+    private func setup{{capitalized_name}}() {
+        {{name}}.backgroundColor = <# UIColor #>
+        {{name}}.clipBounds = <# true or false #>
+        addSubview({{name}})
+    }
+
+    {{/properties.ui_view}}
+    {{#properties.unknow_type}}
+    private func setup{{capitalized_name}}() {
+        addSubview({{name}})
+    }
+
+    {{/properties.unknow_type}}
 
     // MARK: - Constraints
 
